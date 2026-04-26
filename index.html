@@ -1,5 +1,5 @@
 <?php
-// Carrega os dados da API
+// Carrega os dados da API da rádio
 $xml = simplexml_load_file("https://igng.com.br/api/TnpBeE9BPT0rWg==");
 ?>
 <!DOCTYPE html>
@@ -10,45 +10,112 @@ $xml = simplexml_load_file("https://igng.com.br/api/TnpBeE9BPT0rWg==");
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('fundo-sertanejo.jpg') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #3e2c1c, #1a120d);
       color: #fff;
     }
+
+    /* TOPO */
     header {
-      background: rgba(0,0,0,0.7);
-      padding: 20px;
-      text-align: center;
-    }
-    .player {
       background: #8B4513;
-      padding: 15px;
+      padding: 30px;
+      text-align: center;
+      border-bottom: 5px solid #FFD700;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #FFD700;
+      text-shadow: 2px 2px #000;
+    }
+    header p {
+      margin: 10px 0 0;
+      font-style: italic;
+      color: #f0e68c;
+    }
+
+    /* PLAYER */
+    .player {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 1000px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
     .player img {
-      height: 60px;
-      border-radius: 5px;
-      margin-right: 15px;
+      height: 100px;
+      border-radius: 10px;
+      margin-right: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
     .info {
       flex-grow: 1;
+      margin-right: 20px;
     }
-    .info h2, .info p {
+    .info h2 {
       margin: 0;
+      font-size: 1.8em;
+      color: #FFD700;
+    }
+    .info p {
+      margin: 5px 0;
+      color: #f0e68c;
     }
     audio {
       width: 300px;
+      outline: none;
+    }
+
+    /* TOP 5 */
+    .top5 {
+      width: 90%;
+      max-width: 1000px;
+      margin: 30px auto;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+    .top5 h2 {
+      color: #FFD700;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .top5 ul {
+      list-style: none;
+      padding: 0;
+    }
+    .top5 li {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+      color: #f0e68c;
+    }
+
+    /* RODAPÉ */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #2c1a0f;
+      color: #ccc;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
+  <!-- TOPO -->
   <header>
     <h1><?php echo $xml->titulo; ?> - Sertanejo Online</h1>
     <p>DJ ao vivo na porta <?php echo $xml->porta_dj; ?></p>
   </header>
 
+  <!-- PLAYER -->
   <div class="player">
     <img src="<?php echo $xml->capa_musica; ?>" alt="Capa da música">
     <div class="info">
@@ -61,5 +128,22 @@ $xml = simplexml_load_file("https://igng.com.br/api/TnpBeE9BPT0rWg==");
       Seu navegador não suporta áudio HTML5.
     </audio>
   </div>
+
+  <!-- TOP 5 SERTANEJO -->
+  <div class="top5">
+    <h2>🎶 Top 5 Sertanejo no Spotify</h2>
+    <ul>
+      <li><strong>1.</strong> Retrovisor – Gusttavo Lima</li>
+      <li><strong>2.</strong> Olho Marrom – Luan Santana</li>
+      <li><strong>3.</strong> Sua Boca Mente – Zé Felipe, Ana Castela</li>
+      <li><strong>4.</strong> Olha Onde Eu Tô – Ana Castela</li>
+      <li><strong>5.</strong> Não Mexe nas Minhas Gavetas – Danilo & Davi</li>
+    </ul>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer>
+    &copy; <?php echo date("Y"); ?> <?php echo $xml->titulo; ?> - Todos os direitos reservados
+  </footer>
 </body>
 </html>
