@@ -1,119 +1,65 @@
+<?php
+// Carrega os dados da API
+$xml = simplexml_load_file("https://igng.com.br/api/TnpBeE9BPT0rWg==");
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loja de Programas Online</title>
+  <title><?php echo $xml->titulo; ?> - Rádio Sertanejo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      background: url('fundo-sertanejo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
     }
     header {
-      background-color: #333;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-    }
-    nav {
-      background-color: #444;
-    }
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-    nav ul li {
-      position: relative;
-    }
-    nav ul li a {
-      display: block;
-      padding: 15px 20px;
-      color: #fff;
-      text-decoration: none;
-    }
-    nav ul li:hover {
-      background-color: #555;
-    }
-    nav ul li ul {
-      display: none;
-      position: absolute;
-      top: 50px;
-      left: 0;
-      background-color: #555;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      min-width: 200px;
-    }
-    nav ul li:hover ul {
-      display: block;
-    }
-    nav ul li ul li a {
-      padding: 10px;
-      color: #fff;
-    }
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
+      background: rgba(0,0,0,0.7);
       padding: 20px;
-      margin-top: 30px;
+      text-align: center;
     }
-    .telegram-btn {
-      display: inline-block;
-      background-color: #0088cc;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
+    .player {
+      background: #8B4513;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .player img {
+      height: 60px;
       border-radius: 5px;
-      font-weight: bold;
+      margin-right: 15px;
     }
-    .telegram-btn:hover {
-      background-color: #006699;
+    .info {
+      flex-grow: 1;
+    }
+    .info h2, .info p {
+      margin: 0;
+    }
+    audio {
+      width: 300px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Loja de Programas Online</h1>
+    <h1><?php echo $xml->titulo; ?> - Sertanejo Online</h1>
+    <p>DJ ao vivo na porta <?php echo $xml->porta_dj; ?></p>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="#">Windows</a>
-        <ul>
-          <li><a href="#">Programas Tools</a></li>
-          <li><a href="#">Utilitários</a></li>
-          <li><a href="#">Plugins</a></li>
-          <li><a href="#">Editores de Áudio</a></li>
-          <li><a href="#">Editores de Vídeo</a></li>
-          <li><a href="#">Editores de Imagem</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Celular</a>
-        <ul>
-          <li><a href="#">APK</a></li>
-          <li><a href="#">Jogos</a></li>
-          <li><a href="#">Utilitários</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Carrinho</a></li>
-      <li><a href="#">Área do Cliente</a></li>
-      <li><a href="#">Contato</a></li>
-    </ul>
-  </nav>
-
-  <main style="padding:20px;">
-    <h2>Bem-vindo à nossa loja!</h2>
-    <p>Aqui você encontra programas e aplicativos para Windows e Celular.</p>
-  </main>
-
-  <footer>
-    <p>© 2026 Loja de Programas Online</p>
-    <a class="telegram-btn" href="https://t.me/seuTelegram" target="_blank">Fale Conosco no Telegram</a>
-  </footer>
+  <div class="player">
+    <img src="<?php echo $xml->capa_musica; ?>" alt="Capa da música">
+    <div class="info">
+      <h2><?php echo $xml->musica_atual; ?></h2>
+      <p>Próxima: <?php echo $xml->proxima_musica; ?></p>
+      <p>Ouvintes: <?php echo $xml->ouvintes_conectados; ?>/<?php echo $xml->plano_ouvintes; ?></p>
+    </div>
+    <audio controls autoplay>
+      <source src="http://stm.igng.com.br:7018/stream" type="audio/mpeg">
+      Seu navegador não suporta áudio HTML5.
+    </audio>
+  </div>
 </body>
 </html>
